@@ -9,6 +9,7 @@ import { AuthButton } from '@/components/auth-button'
 import { getUser, getProfile, getAllProjects, getUserApplication } from '@/lib/supabase/queries'
 import { Project } from '@/lib/types'
 import { Plus, Users } from 'lucide-react'
+import Image from 'next/image'
 
 export default function HomePage() {
   const [user, setUser] = useState<any>(null)
@@ -96,7 +97,13 @@ export default function HomePage() {
       <header className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-xl font-semibold">EECE 27</h1>
+            <Image 
+              src="/logo.png" 
+              alt="EECE 27 Logo" 
+              width={120} 
+              height={40} 
+              className="h-8 w-auto"
+            />
             <div className="flex items-center gap-4">
               <Link href="/create">
                 <Button size="sm">

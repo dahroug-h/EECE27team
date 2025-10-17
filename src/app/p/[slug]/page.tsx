@@ -10,6 +10,7 @@ import { AuthButton } from '@/components/auth-button'
 import { getUser, getProfile, getProjectBySlug, applyToProject, removeApplication, getApplications, getUserApplication, deleteProject } from '@/lib/supabase/queries'
 import { Project, ApplicationWithProfile } from '@/lib/types'
 import { ArrowLeft, Users, Calendar, User, MessageCircle, ExternalLink, ChevronDown, Search, Trash2 } from 'lucide-react'
+import Image from 'next/image'
 
 // WhatsApp-style time formatting
 function formatTimeAgo(date: string): string {
@@ -223,7 +224,14 @@ export default function ProjectPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-end items-center h-16">
+          <div className="flex justify-between items-center h-16">
+            <Image 
+              src="/logo.png" 
+              alt="EECE 27 Logo" 
+              width={120} 
+              height={40} 
+              className="h-8 w-auto"
+            />
             {user && (
               <AuthButton isAuthenticated={true} />
             )}

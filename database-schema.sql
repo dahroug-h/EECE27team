@@ -51,6 +51,10 @@ CREATE POLICY "Authenticated users can create projects"
   ON projects FOR INSERT 
   WITH CHECK (auth.uid() = creator_id);
 
+CREATE POLICY "Users can delete own projects" 
+  ON projects FOR DELETE 
+  USING (auth.uid() = creator_id);
+
 -- Create applications table
 CREATE TABLE applications (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

@@ -203,6 +203,9 @@ export async function deleteProject(projectId: string) {
   
   if (!user) throw new Error('User not authenticated')
   
+  console.log('Delete project - User ID:', user.id)
+  console.log('Delete project - Project ID:', projectId)
+  
   // First verify the user is the creator of the project
   const { data: projectData, error: fetchError } = await supabase
     .from('projects')
@@ -210,16 +213,22 @@ export async function deleteProject(projectId: string) {
     .eq('id', projectId)
     .single()
   
+  console.log('Project data:', projectData)
+  console.log('Fetch error:', fetchError)
+  
   if (fetchError) throw fetchError
   if (projectData.creator_id !== user.id) {
     throw new Error('Only the project creator can delete this project')
   }
   
   // Delete the project (applications will be deleted automatically due to CASCADE)
-  const { error } = await supabase
+  const { error, data } = await supabase
     .from('projects')
     .delete()
     .eq('id', projectId)
+    .select()
+  
+  console.log('Delete result:', { error, data })
   
   if (error) throw error
 }
