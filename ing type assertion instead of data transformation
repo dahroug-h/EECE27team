@@ -1,0 +1,4 @@
+[33mba0f428[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Fix: TypeScript error with Supabase query data transformation
+[33m8769dd4[m Fix: TypeScript error in getApplications function
+[33m3189465[m here we go
+[33mf0d65ba[m Initial commit: EECE27 Team Formation Platform
