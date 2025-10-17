@@ -112,11 +112,18 @@ export async function getAllProjects(): Promise<Project[]> {
   const supabase = createClient()
   const { data: projectsData, error } = await supabase
     .from('projects')
-    .select('*')
+    .select(`
+      *,
+      applications(count)
+    `)
     .order('created_at', { ascending: false })
 
   if (error) return []
-  return projectsData || []
+  
+  return (projectsData || []).map(project => ({
+    ...project,
+    applications_count: project.applications[0]?.count || 0
+  }))
 }
 
 export async function applyToProject(projectId: string) {

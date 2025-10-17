@@ -16,6 +16,7 @@ export interface Project {
   team_size?: number
   creator_id: string
   created_at: string
+  applications_count?: number
 }
 
 export interface Application {

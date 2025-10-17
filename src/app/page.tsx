@@ -137,7 +137,7 @@ export default function HomePage() {
                 <CardHeader>
                   <CardTitle className="text-lg">{project.name}</CardTitle>
                   <CardDescription>
-                    Created by {project.creator_id === user.id ? 'You' : 'Another user'}
+                    
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -149,7 +149,7 @@ export default function HomePage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center text-sm text-gray-500">
                       <Users className="w-4 h-4 mr-1" />
-                      {project.team_size ? `Max ${project.team_size} members` : 'No limit'}
+                      {project.applications_count || 0} Available
                     </div>
                     <Link href={`/p/${project.slug}`}>
                       <Button variant="outline" size="sm">
