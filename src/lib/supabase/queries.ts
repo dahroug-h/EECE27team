@@ -174,7 +174,7 @@ export async function getApplications(projectId: string): Promise<ApplicationWit
   }
   
   // Type assertion to handle Supabase's data structure
-  return (applicationsData || []) as ApplicationWithProfile[]
+  return (applicationsData || []) as unknown as ApplicationWithProfile[]
 }
 
 export async function getUserApplication(projectId: string, userId: string) {
