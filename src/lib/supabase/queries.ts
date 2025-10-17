@@ -173,7 +173,16 @@ export async function getApplications(projectId: string): Promise<ApplicationWit
     return []
   }
   
-  return applicationsData || []
+  // Transform the data to match ApplicationWithProfile interface
+  const transformedData: ApplicationWithProfile[] = (applicationsData || []).map(app => ({
+    id: app.id,
+    project_id: app.project_id,
+    user_id: app.user_id,
+    created_at: app.created_at,
+    profiles: Array.isArray(app.profiles) ? app.profiles[0] : app.profiles
+  }))
+  
+  return transformedData
 }
 
 export async function getUserApplication(projectId: string, userId: string) {
