@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { AuthButton } from '@/components/auth-button'
-import { getUser, getProfile, getProjectBySlug, applyToProject, removeApplication, getApplications, getUserApplication } from '@/lib/supabase/queries'
+import { getUser, getProfile, getProjectBySlug, applyToProject, removeApplication, getApplications, getUserApplication, deleteProject } from '@/lib/supabase/queries'
 import { Project, ApplicationWithProfile } from '@/lib/types'
-import { ArrowLeft, Users, Calendar, User, MessageCircle, ExternalLink, ChevronDown, Search } from 'lucide-react'
+import { ArrowLeft, Users, Calendar, User, MessageCircle, ExternalLink, ChevronDown, Search, Trash2 } from 'lucide-react'
 
 // WhatsApp-style time formatting
 function formatTimeAgo(date: string): string {
@@ -59,6 +59,8 @@ export default function ProjectPage() {
   const [userApplication, setUserApplication] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isApplying, setIsApplying] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedSection, setSelectedSection] = useState<string | undefined>(undefined)
   const [sortBy, setSortBy] = useState('recent')
@@ -171,6 +173,23 @@ export default function ProjectPage() {
       console.error('Error removing application:', error)
     } finally {
       setIsApplying(false)
+    }
+  }
+
+  const handleDeleteProject = async () => {
+    if (!project) return
+
+    setIsDeleting(true)
+    try {
+      await deleteProject(project.id)
+      // Redirect to home page after successful deletion
+      router.push('/')
+    } catch (error) {
+      console.error('Error deleting project:', error)
+      alert('Failed to delete project. Please try again.')
+    } finally {
+      setIsDeleting(false)
+      setShowDeleteConfirm(false)
     }
   }
 
@@ -344,11 +363,20 @@ export default function ProjectPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center">
+                  <div className="text-center space-y-4">
                     <div className="inline-flex items-center bg-green-50 text-green-700 px-4 py-2 rounded-full">
                       <Users className="w-5 h-5 mr-2" />
                       <span className="font-semibold">{applications.length} Available</span>
                     </div>
+                    <Button 
+                      variant="destructive" 
+                      size="sm"
+                      onClick={() => setShowDeleteConfirm(true)}
+                      className="w-full"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Delete Project
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -392,8 +420,42 @@ export default function ProjectPage() {
               </Card>
              )}
           </div>
-        </div>
-      </main>
-    </div>
-  )
-}
+          </div>
+        </main>
+
+        {/* Delete Confirmation Dialog */}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <Card className="w-full max-w-md mx-4">
+              <CardHeader>
+                <CardTitle className="text-red-600">Delete Project</CardTitle>
+                <CardDescription>
+                  Are you sure you want to delete "{project?.name}"? This action cannot be undone and will remove all applications.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setShowDeleteConfirm(false)}
+                    className="flex-1"
+                    disabled={isDeleting}
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    variant="destructive" 
+                    onClick={handleDeleteProject}
+                    disabled={isDeleting}
+                    className="flex-1"
+                  >
+                    {isDeleting ? 'Deleting...' : 'Delete'}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </div>
+    )
+  }

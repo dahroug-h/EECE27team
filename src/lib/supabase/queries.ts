@@ -197,6 +197,33 @@ export async function getUserApplication(projectId: string, userId: string) {
   return applicationData
 }
 
+export async function deleteProject(projectId: string) {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) throw new Error('User not authenticated')
+  
+  // First verify the user is the creator of the project
+  const { data: projectData, error: fetchError } = await supabase
+    .from('projects')
+    .select('creator_id')
+    .eq('id', projectId)
+    .single()
+  
+  if (fetchError) throw fetchError
+  if (projectData.creator_id !== user.id) {
+    throw new Error('Only the project creator can delete this project')
+  }
+  
+  // Delete the project (applications will be deleted automatically due to CASCADE)
+  const { error } = await supabase
+    .from('projects')
+    .delete()
+    .eq('id', projectId)
+  
+  if (error) throw error
+}
+
 export function formatWhatsAppLink(number: string): string {
   const cleaned = number.replace(/\D/g, '')
   const withCountryCode = cleaned.startsWith('20') ? cleaned : '20' + cleaned
