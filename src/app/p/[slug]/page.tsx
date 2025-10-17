@@ -239,7 +239,50 @@ export default function ProjectPage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Mobile top action bar */}
+      <div className="lg:hidden sticky top-0 z-40 bg-white border-b">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          {!user ? (
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-sm text-gray-600">Sign in to apply</div>
+              <AuthButton isAuthenticated={false} />
+            </div>
+          ) : isCreator ? (
+            <div className="flex items-center justify-between">
+              <div className="inline-flex items-center bg-green-50 text-green-700 px-3 py-1 rounded-full">
+                <Users className="w-4 h-4 mr-2" />
+                <span className="font-semibold text-sm">{applications.length} Available</span>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              {userApplication ? (
+                <>
+                  <div className="flex-1 text-green-600 text-sm font-medium text-center">You Are here!</div>
+                  <Button 
+                    variant="outline" 
+                    onClick={handleRemoveApplication}
+                    disabled={isApplying}
+                    className="flex-1"
+                  >
+                    {isApplying ? 'Removing...' : 'Remove Me'}
+                  </Button>
+                </>
+              ) : (
+                <Button 
+                  onClick={handleApply}
+                  disabled={isApplying}
+                  className="w-full"
+                >
+                  {isApplying ? 'Applying...' : 'I am available'}
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
          <div className="mb-8">
            <h1 className="text-3xl font-bold text-gray-900 mb-2">{project.name}</h1>
          </div>
