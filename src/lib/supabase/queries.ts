@@ -154,7 +154,9 @@ export async function getApplications(projectId: string): Promise<ApplicationWit
   const { data: applicationsData, error } = await supabase
     .from('applications')
     .select(`
-      id, 
+      id,
+      project_id,
+      user_id,
       created_at,
       profiles!inner (
         id, 
