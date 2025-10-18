@@ -41,8 +41,9 @@ export default function SetupProfilePage() {
 
   const handleWhatsAppChange = (value: string) => {
     setWhatsappNumber(value)
-    // Check if country code is removed
-    if (!value.startsWith('+20')) {
+    // Check if number is valid format: +20 followed by exactly 10 digits
+    const validFormat = /^\+20\d{10}$/
+    if (!validFormat.test(value)) {
       setCountryCodeError(true)
     } else {
       setCountryCodeError(false)
@@ -53,8 +54,9 @@ export default function SetupProfilePage() {
     e.preventDefault()
     if (!fullName.trim() || !section.trim() || !whatsappNumber.trim()) return
 
-    // Validate country code before submission
-    if (!whatsappNumber.startsWith('+20')) {
+    // Validate number format before submission
+    const validFormat = /^\+20\d{10}$/
+    if (!validFormat.test(whatsappNumber)) {
       setCountryCodeError(true)
       return
     }
@@ -136,7 +138,7 @@ export default function SetupProfilePage() {
               />
               {countryCodeError && (
                 <p className="text-xs sm:text-sm text-red-500">
-                  Please add the country code (+20)
+                  Please enter a valid number (+201503354429)
                 </p>
               )}
               <p className="text-xs sm:text-sm text-gray-500">
