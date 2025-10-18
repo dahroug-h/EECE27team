@@ -140,7 +140,7 @@ export default function SetupProfilePage() {
                 </p>
               )}
               <p className="text-xs sm:text-sm text-gray-500">
-                Enter your full number with country code (+20)
+                
               </p>
             </div>
             <Button type="submit" className="w-full text-sm sm:text-base" disabled={isLoading}>
