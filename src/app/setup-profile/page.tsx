@@ -19,9 +19,10 @@ const sectionOptions = [
 export default function SetupProfilePage() {
   const [fullName, setFullName] = useState('')
   const [section, setSection] = useState('')
-  const [whatsappNumber, setWhatsappNumber] = useState('')
+  const [whatsappNumber, setWhatsappNumber] = useState('+20')
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [countryCodeError, setCountryCodeError] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -38,9 +39,25 @@ export default function SetupProfilePage() {
     loadUser()
   }, [router])
 
+  const handleWhatsAppChange = (value: string) => {
+    setWhatsappNumber(value)
+    // Check if country code is removed
+    if (!value.startsWith('+20')) {
+      setCountryCodeError(true)
+    } else {
+      setCountryCodeError(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!fullName.trim() || !section.trim() || !whatsappNumber.trim()) return
+
+    // Validate country code before submission
+    if (!whatsappNumber.startsWith('+20')) {
+      setCountryCodeError(true)
+      return
+    }
 
     setIsLoading(true)
     try {
@@ -111,14 +128,19 @@ export default function SetupProfilePage() {
               <Input
                 id="whatsapp"
                 type="tel"
-                placeholder="e.g., 01234567890"
+                placeholder="e.g., +201234567890"
                 value={whatsappNumber}
-                onChange={(e) => setWhatsappNumber(e.target.value)}
+                onChange={(e) => handleWhatsAppChange(e.target.value)}
                 required
-                className="text-sm sm:text-base"
+                className={`text-sm sm:text-base ${countryCodeError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
               />
+              {countryCodeError && (
+                <p className="text-xs sm:text-sm text-red-500">
+                  Please add the country code (+20)
+                </p>
+              )}
               <p className="text-xs sm:text-sm text-gray-500">
-                
+                Enter your full number with country code (+20)
               </p>
             </div>
             <Button type="submit" className="w-full text-sm sm:text-base" disabled={isLoading}>

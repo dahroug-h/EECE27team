@@ -390,7 +390,7 @@ export default function ProjectPage() {
                           rel="noopener noreferrer"
                           className="flex items-center text-green-600 hover:text-green-700 text-xs sm:text-sm"
                         >
-                          <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                          <MessageCircle className="w-4 h-4 sm:w-4 sm:h-4 mr-1" />
                           <span className="hidden sm:inline">WhatsApp</span>
                         </a>
                       </div>
