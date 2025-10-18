@@ -106,9 +106,10 @@ export default function HomePage() {
             />
             <div className="flex items-center gap-2 sm:gap-4">
               <Link href="/create">
-                <Button size="sm" className="hidden xs:inline-flex">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Project
+                <Button size="sm" className="text-xs sm:text-sm px-2 sm:px-3">
+                  <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Create Project</span>
+                  <span className="sm:hidden">Create</span>
                 </Button>
               </Link>
               <AuthButton isAuthenticated={true} onSignOut={handleSignOut} />
