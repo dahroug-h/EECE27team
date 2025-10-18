@@ -69,18 +69,18 @@ export default function SetupProfilePage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-3 sm:p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle>Fill This</CardTitle>
-          <CardDescription>
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+          <CardTitle className="text-lg sm:text-xl">Fill This</CardTitle>
+          <CardDescription className="text-sm sm:text-base">
             one time setup for forever 
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
+              <Label htmlFor="fullName" className="text-sm sm:text-base">Full Name</Label>
               <Input
                 id="fullName"
                 type="text"
@@ -88,12 +88,13 @@ export default function SetupProfilePage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
+                className="text-sm sm:text-base"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="section">Section</Label>
+              <Label htmlFor="section" className="text-sm sm:text-base">Section</Label>
               <Select value={section} onValueChange={setSection} required>
-                <SelectTrigger>
+                <SelectTrigger className="text-sm sm:text-base">
                   <SelectValue placeholder="Select Section" />
                 </SelectTrigger>
                 <SelectContent>
@@ -106,7 +107,7 @@ export default function SetupProfilePage() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="whatsapp">WhatsApp Number</Label>
+              <Label htmlFor="whatsapp" className="text-sm sm:text-base">WhatsApp Number</Label>
               <Input
                 id="whatsapp"
                 type="tel"
@@ -114,12 +115,13 @@ export default function SetupProfilePage() {
                 value={whatsappNumber}
                 onChange={(e) => setWhatsappNumber(e.target.value)}
                 required
+                className="text-sm sm:text-base"
               />
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500">
                 
               </p>
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full text-sm sm:text-base" disabled={isLoading}>
               {isLoading ? 'Just a sec...' : 'let\'s go'}
             </Button>
           </form>

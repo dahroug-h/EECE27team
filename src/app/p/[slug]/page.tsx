@@ -241,29 +241,38 @@ export default function ProjectPage() {
 
       {/* Mobile top action bar */}
       <div className="lg:hidden sticky top-0 z-40 bg-white border-b">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="max-w-4xl mx-auto px-3 sm:px-6 py-2 sm:py-3">
           {!user ? (
-            <div className="flex items-center justify-between gap-3">
-              <div className="text-sm text-gray-600">Sign in to apply</div>
+            <div className="flex items-center justify-between gap-2">
+              <div className="text-xs sm:text-sm text-gray-600">Sign in to apply</div>
               <AuthButton isAuthenticated={false} />
             </div>
           ) : isCreator ? (
-            <div className="flex items-center justify-between">
-              <div className="inline-flex items-center bg-green-50 text-green-700 px-3 py-1 rounded-full">
-                <Users className="w-4 h-4 mr-2" />
-                <span className="font-semibold text-sm">{applications.length} Available</span>
+            <div className="flex items-center justify-between gap-2">
+              <div className="inline-flex items-center bg-green-50 text-green-700 px-2 sm:px-3 py-1 rounded-full">
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="font-semibold text-xs sm:text-sm">{applications.length} Available</span>
               </div>
+              <Button 
+                variant="destructive" 
+                size="sm"
+                onClick={() => setShowDeleteConfirm(true)}
+                className="text-xs px-2 sm:px-3"
+              >
+                <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                <span className="hidden sm:inline">Delete</span>
+              </Button>
             </div>
           ) : (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               {userApplication ? (
                 <>
-                  <div className="flex-1 text-green-600 text-sm font-medium text-center">You Are here!</div>
+                  <div className="flex-1 text-green-600 text-xs sm:text-sm font-medium text-center">You Are here!</div>
                   <Button 
                     variant="outline" 
                     onClick={handleRemoveApplication}
                     disabled={isApplying}
-                    className="flex-1"
+                    className="flex-1 text-xs sm:text-sm px-2 sm:px-3"
                   >
                     {isApplying ? 'Removing...' : 'Remove Me'}
                   </Button>
@@ -272,7 +281,7 @@ export default function ProjectPage() {
                 <Button 
                   onClick={handleApply}
                   disabled={isApplying}
-                  className="w-full"
+                  className="w-full text-xs sm:text-sm px-3 sm:px-4"
                 >
                   {isApplying ? 'Applying...' : 'I am available'}
                 </Button>
@@ -282,33 +291,33 @@ export default function ProjectPage() {
         </div>
       </div>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-         <div className="mb-8">
-           <h1 className="text-3xl font-bold text-gray-900 mb-2">{project.name}</h1>
+      <main className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+         <div className="mb-4 sm:mb-8">
+           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{project.name}</h1>
          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
           <div className="lg:col-span-2">
             <Card>
-              <CardHeader className="pb-2">
+              <CardHeader className="pb-2 px-3 sm:px-6">
                 <CardTitle></CardTitle>
               </CardHeader>
-               <CardContent className="pt-0">
+               <CardContent className="pt-0 px-3 sm:px-6">
                  {project.description ? (
-                   <p className="text-gray-700 whitespace-pre-wrap">{project.description}</p>
+                   <p className="text-sm sm:text-base text-gray-700 whitespace-pre-wrap">{project.description}</p>
                  ) : (
-                   <p className="text-gray-500 italic">No description provided</p>
+                   <p className="text-sm sm:text-base text-gray-500 italic">No description provided</p>
                  )}
                  
                  {/* Available People Count and Created Date */}
-                 <div className="flex items-center justify-between text-sm text-gray-600 mt-2">
-                   <div className="flex items-center bg-green-50 text-green-700 px-3 py-1 rounded-full">
-                     <Users className="w-4 h-4 mr-2" />
-                     <span className="font-semibold">{applications.length} Available</span>
+                 <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 mt-2">
+                   <div className="flex items-center bg-green-50 text-green-700 px-2 sm:px-3 py-1 rounded-full">
+                     <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                     <span className="font-semibold text-xs sm:text-sm">{applications.length} Available</span>
                    </div>
                    <div className="flex items-center">
-                     <Calendar className="w-4 h-4 mr-1" />
-                     <span>Created {new Date(project.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                     <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                     <span className="text-xs sm:text-sm">Created {new Date(project.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                    </div>
                  </div>
                </CardContent>
@@ -316,23 +325,23 @@ export default function ProjectPage() {
 
             {/* Search and Filter Bar */}
             {applications.length > 0 && (
-              <div className="mt-4 p-4 bg-white border rounded-lg">
-                <div className="flex flex-col sm:flex-row gap-4 items-center">
+              <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-white border rounded-lg">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
                   {/* Search Bar */}
                   <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 sm:w-4 sm:h-4" />
                     <input
                       type="text"
                       placeholder="Search by name..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-8 sm:pl-10 pr-3 sm:pr-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
                   {/* Section Filter */}
                   <Select value={selectedSection} onValueChange={setSelectedSection}>
-                    <SelectTrigger className="w-[140px]">
+                    <SelectTrigger className="w-[120px] sm:w-[140px] text-xs sm:text-sm">
                       <SelectValue placeholder="All Sections" />
                     </SelectTrigger>
                     <SelectContent>
@@ -350,24 +359,24 @@ export default function ProjectPage() {
             )}
 
             {applications.length > 0 && (
-              <Card className="mt-6">
-                <CardHeader>
+              <Card className="mt-4 sm:mt-6">
+                <CardHeader className="px-3 sm:px-6 py-3 sm:py-6">
                   <CardTitle></CardTitle>
                   <CardDescription>
                     
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
+                <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
+                  <div className="space-y-3 sm:space-y-6">
                     {filteredApplications.map((application) => (
-                      <div key={application.id} className="flex items-center justify-between p-6 border rounded-lg">
-                        <div className="flex items-center space-x-6">
-                          <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                            <User className="w-6 h-6 text-gray-600" />
+                      <div key={application.id} className="flex items-center justify-between p-3 sm:p-6 border rounded-lg">
+                        <div className="flex items-center space-x-3 sm:space-x-6">
+                          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                            <User className="w-4 h-4 sm:w-6 sm:h-6 text-gray-600" />
                           </div>
                           <div>
-                            <h4 className="font-medium text-lg">{application.profiles.full_name}</h4>
-                            <p className="text-sm font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-full inline-block">
+                            <h4 className="font-medium text-sm sm:text-lg">{application.profiles.full_name}</h4>
+                            <p className="text-xs sm:text-sm font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-full inline-block">
                               Sec: {application.profiles.section}
                             </p>
                             <p className="text-xs text-green-500 font-medium mt-1">
@@ -379,10 +388,10 @@ export default function ProjectPage() {
                           href={`https://wa.me/${application.profiles.whatsapp_number.replace(/\D/g, '')}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center text-green-600 hover:text-green-700"
+                          className="flex items-center text-green-600 hover:text-green-700 text-xs sm:text-sm"
                         >
-                          <MessageCircle className="w-4 h-4 mr-1" />
-                          WhatsApp
+                          <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                          <span className="hidden sm:inline">WhatsApp</span>
                         </a>
                       </div>
                     ))}
@@ -392,7 +401,8 @@ export default function ProjectPage() {
             )}
           </div>
 
-          <div className="space-y-6">
+          {/* Desktop Sidebar - Hidden on Mobile */}
+          <div className="hidden lg:block space-y-6">
             {!user ? (
               <Card>
                 <CardHeader>

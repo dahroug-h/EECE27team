@@ -117,20 +117,20 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Projects</h2>
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        <div className="mb-4 sm:mb-6 lg:mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Projects</h2>
           <p className="text-gray-600"></p>
         </div>
 
         {projects.length === 0 ? (
-          <Card className="text-center py-12">
-            <CardContent>
-              <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No projects yet</h3>
-              <p className="text-gray-600 mb-4">Be the first to create a project and start building your team!</p>
+          <Card className="text-center py-8 sm:py-12">
+            <CardContent className="px-4 sm:px-6">
+              <Users className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No projects yet</h3>
+              <p className="text-sm sm:text-base text-gray-600 mb-4">Be the first to create a project and start building your team!</p>
               <Link href="/create">
-                <Button>
+                <Button className="text-sm sm:text-base">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Your First Project
                 </Button>
@@ -138,28 +138,28 @@ export default function HomePage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
             {projects.map((project) => (
               <Card key={project.id} className="hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg">{project.name}</CardTitle>
+                <CardHeader className="px-3 sm:px-6 py-3 sm:py-6">
+                  <CardTitle className="text-base sm:text-lg">{project.name}</CardTitle>
                   <CardDescription>
                     
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
                   {project.description && (
-                    <p className="text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-3">
+                    <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-3">
                       {project.description}
                     </p>
                   )}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Users className="w-4 h-4 mr-1" />
+                    <div className="flex items-center text-xs sm:text-sm text-gray-500">
+                      <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                       {project.applications_count || 0} Available
                     </div>
                     <Link href={`/p/${project.slug}`}>
-                      <Button variant="outline" size="sm" className="px-3">
+                      <Button variant="outline" size="sm" className="px-2 sm:px-3 text-xs sm:text-sm">
                         {userApplications.has(project.id) ? 'View Applications' : 'View Project'}
                       </Button>
                     </Link>
