@@ -2,7 +2,13 @@
   "name": "eece27-team-formation",
   "version": "1.0.0",
   "description": "A modern web application for EECE27 students to find and form project teams",
-  "keywords": ["eece27", "team-formation", "nextjs", "supabase", "education"],
+  "keywords": [
+    "eece27",
+    "team-formation",
+    "nextjs",
+    "supabase",
+    "education"
+  ],
   "author": "EECE27 Community",
   "license": "MIT",
   "homepage": "https://github.com/dahroug-h/EECE27team#readme",
@@ -31,7 +37,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.546.0",
-    "next": "15.5.5",
+    "next": "15.5.9",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1"
